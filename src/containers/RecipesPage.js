@@ -1,17 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as recipeActions from "../../redux/actions/recipeActions";
-import * as categoryActions from "../../redux/actions/categoryActions";
+import * as recipeActions from "../redux/actions/recipeActions";
+import * as categoryActions from "../redux/actions/categoryActions";
 import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
-import RecipeList from "./RecipeList";
+import RecipeList from "../components/RecipeList";
 import { Redirect } from "react-router-dom";
-import Spinner from "../common/Spinner";
+import Spinner from "../components/common/Spinner";
 import { toast } from "react-toastify";
 
 class RecipesPage extends React.Component {
   state = {
-    redirectToAddCoursePage: false,
+    redirectToAddRecipePage: false,
+    redirectToEditRecipe: null,
   };
 
   componentDidMount() {
@@ -39,9 +40,16 @@ class RecipesPage extends React.Component {
     }
   };
 
+  handleEditRecipe = (slug) => {
+    this.setState({ redirectToEditRecipe: `/recipe/${slug}` });
+  };
+
   render() {
     return (
       <>
+        {this.state.redirectToEditRecipe && (
+          <Redirect to={this.state.redirectToEditRecipe} />
+        )}
         {this.state.redirectToAddRecipePage && <Redirect to="/recipe" />}
         <h2>Recipes</h2>
         {this.props.loading ? (
@@ -57,6 +65,7 @@ class RecipesPage extends React.Component {
             </button>
 
             <RecipeList
+              onEditClick={this.handleEditRecipe}
               onDeleteClick={this.handleDeleteRecipe}
               recipes={this.props.recipes}
             />

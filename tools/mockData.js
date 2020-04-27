@@ -5,8 +5,8 @@ const recipes = [
     slug: "empanadas-chilenas",
     description:
       "Este plato es perfecto para comer como desayuno o cena y es tan rico y completo que no podréis comer solo una.",
-    prepTime: 45,
-    servings: 1,
+    prepTimeId: 2,
+    servingsId: 1,
     image:
       "https://cdn.pixabay.com/photo/2018/05/18/03/56/empanadas-3410288_960_720.jpg",
     categoryId: 1,
@@ -42,8 +42,8 @@ const recipes = [
     slug: "crema-auyama",
     description:
       "La ahuyama o auyama, también conocida como calabaza o zapallo, es utilizada en diversos platos de la cocina gourmet y de la gastronomía típica. Incluso, resulta ser un ingrediente tan versátil que lo podemos encontrar en platillos dulces y salados.",
-    prepTime: 30,
-    servings: 1,
+    prepTimeId: 4,
+    servingsId: 2,
     image:
       "https://cdn.pixabay.com/photo/2018/08/31/19/13/pumpkin-soup-3645375_960_720.jpg",
     categoryId: 2,
@@ -66,8 +66,8 @@ const recipes = [
     slug: "gazpacho-invierno",
     description:
       "Quién dijo que el gazpacho solo se come en verano? ¡Alguien que no ha probado un exquisito gazpacho de invierno! Este plato es tan sustancioso como su versión tradicional, solo que se sirve templado para calentar las noches más frescas del año.",
-    prepTime: 30,
-    servings: 1,
+    prepTimeId: 1,
+    servingsId: 3,
     image:
       "https://cdn.pixabay.com/photo/2017/05/05/19/06/tomato-soup-2288056_960_720.jpg",
     categoryId: 3,
@@ -92,8 +92,8 @@ const recipes = [
     slug: "pie-limon",
     description:
       "Este postre es perfecto ya que tiene un toque dulce por el merengue y un toque ácido por el limón.",
-    prepTime: 45,
-    servings: 1,
+    prepTimeId: 2,
+    servingsId: 4,
     image:
       "https://cdn.pixabay.com/photo/2017/03/15/19/18/tartlet-2147173_960_720.jpg",
     categoryId: 4,
@@ -123,11 +123,28 @@ const categories = [
   { id: 3, name: "Cenas" },
   { id: 4, name: "Postres" },
 ];
+const prepTime = [
+  { id: 1, name: "5 minutos" },
+  { id: 2, name: "10 minutos" },
+  { id: 3, name: "20 minutos" },
+  { id: 4, name: "30 minutos" },
+];
+const servings = [
+  { id: 1, name: 1 },
+  { id: 2, name: 2 },
+  { id: 3, name: 3 },
+  { id: 4, name: 4 },
+];
 const newRecipe = {
   id: null,
   title: "",
   categoryId: null,
   description: "",
+  prepTimeId: null,
+  servingsId: null,
+  image: "",
+  ingredients: "",
+  instructions: "",
 };
 
 // Using CommonJS style export so we can consume via Node (without using Babel-node)
@@ -135,4 +152,6 @@ module.exports = {
   newRecipe,
   recipes,
   categories,
+  prepTime,
+  servings,
 };

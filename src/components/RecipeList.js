@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
-const RecipeList = ({ recipes, onDeleteClick }) => (
+const RecipeList = ({ recipes, onDeleteClick, onEditClick }) => (
   <table className="table">
     <thead>
       <tr>
@@ -11,6 +10,7 @@ const RecipeList = ({ recipes, onDeleteClick }) => (
         <th>Descripción</th>
         <th>Categoría</th>
         <th />
+        <th />
       </tr>
     </thead>
     <tbody>
@@ -18,21 +18,25 @@ const RecipeList = ({ recipes, onDeleteClick }) => (
         return (
           <tr key={recipe.id}>
             <td>
-              <a className="btn btn-light" href={recipe.image}>
-                Image
-              </a>
+              <img className="img-thumbnail" src={recipe.image }alt={recipe.title} />
             </td>
-            <td>
-              <Link to={"/recipe/" + recipe.slug}>{recipe.title}</Link>
-            </td>
+            <td>{recipe.title}</td>
             <td>{recipe.description}</td>
             <td>{recipe.categoryName}</td>
+            <td>
+            <button 
+                className="btn btn-outline-primary"
+                onClick={() => onEditClick(recipe.slug)}
+              >
+               Editar
+              </button> 
+            </td>
             <td>
               <button
                 className="btn btn-outline-danger"
                 onClick={() => onDeleteClick(recipe)}
               >
-                Delete
+                Eliminar
               </button>
             </td>
           </tr>
@@ -45,6 +49,7 @@ const RecipeList = ({ recipes, onDeleteClick }) => (
 RecipeList.propTypes = {
   recipes: PropTypes.array.isRequired,
   onDeleteClick: PropTypes.func.isRequired,
+  onEditClick: PropTypes.func.isRequired
 };
 
 export default RecipeList;

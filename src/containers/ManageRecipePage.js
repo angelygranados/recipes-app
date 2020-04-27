@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { loadRecipes, saveRecipe } from "../../redux/actions/recipeActions";
-import { loadCategories } from "../../redux/actions/categoryActions";
+import { loadRecipes, saveRecipe } from "../redux/actions/recipeActions";
+import { loadCategories } from "../redux/actions/categoryActions";
+import { loadServings } from "../redux/actions/servingsAction";
+import { loadPrepTime } from "../redux/actions/prepTimeActions";
 import PropTypes from "prop-types";
-import RecipeForm from "./RecipeForm";
-import { newRecipe } from "../../../tools/mockData";
-import Spinner from "../common/Spinner";
+import RecipeForm from "../components/RecipeForm";
+import { newRecipe } from "../../tools/mockData";
+import Spinner from "../components/common/Spinner";
 import { toast } from "react-toastify";
 
 export function ManageRecipePage({
   recipes,
   categories,
+  servings,
+  prepTime,
   loadCategories,
+  loadPrepTime,
+  loadServings,
   loadRecipes,
   saveRecipe,
   history,
@@ -35,6 +41,18 @@ export function ManageRecipePage({
         alert("Loading categories failed" + error);
       });
     }
+
+    if (servings.length === 0) {
+      loadServings().catch((error) => {
+        alert("Loading servings failed" + error);
+      });
+    }
+
+    if (prepTime.length === 0) {
+      loadPrepTime().catch((error) => {
+        alert("Loading prep time failed" + error);
+      });
+    }
   }, [props.recipe]);
 
   function handleChange(event) {
@@ -46,12 +64,26 @@ export function ManageRecipePage({
   }
 
   function formIsValid() {
-    const { title, categoryId, description } = recipe;
+    const {
+      title,
+      categoryId,
+      description,
+      prepTimeId,
+      servingsId,
+      image,
+      ingredients,
+      instructions,
+    } = recipe;
     const errors = {};
 
     if (!title) errors.title = "Title is required.";
     if (!categoryId) errors.category = "Category is required";
     if (!description) errors.description = "Description is required";
+    if (!prepTimeId) errors.prepTimeId = "PrepTime is required";
+    if (!servingsId) errors.servings = "Servings is required";
+    if (!image) errors.image = "Image is required";
+    if (!ingredients) errors.ingredients = "Ingredients are required";
+    if (!instructions) errors.instructions = "Instructions are required";
 
     setErrors(errors);
     // Form is valid if the errors object still has no properties
@@ -80,6 +112,8 @@ export function ManageRecipePage({
       recipe={recipe}
       errors={errors}
       categories={categories}
+      servings={servings}
+      prepTime={prepTime}
       onChange={handleChange}
       onSave={handleSave}
       saving={saving}
@@ -90,9 +124,13 @@ export function ManageRecipePage({
 ManageRecipePage.propTypes = {
   recipe: PropTypes.object.isRequired,
   categories: PropTypes.array.isRequired,
+  servings: PropTypes.array.isRequired,
+  prepTime: PropTypes.array.isRequired,
   recipes: PropTypes.array.isRequired,
   loadRecipes: PropTypes.func.isRequired,
   loadCategories: PropTypes.func.isRequired,
+  loadServings: PropTypes.func.isRequired,
+  loadPrepTime: PropTypes.func.isRequired,
   saveRecipe: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 };
@@ -111,12 +149,16 @@ function mapStateToProps(state, ownProps) {
     recipe,
     recipes: state.recipes,
     categories: state.categories,
+    servings: state.servings,
+    prepTime: state.prepTime,
   };
 }
 
 const mapDispatchToProps = {
   loadRecipes,
   loadCategories,
+  loadPrepTime,
+  loadServings,
   saveRecipe,
 };
 
