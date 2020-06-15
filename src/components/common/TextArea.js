@@ -14,6 +14,7 @@ const TextArea = ({ name, label, onChange, placeholder, value, error }) => {
         <textarea
           type="text"
           name={name}
+          rows="6"
           className="form-control"
           placeholder={placeholder}
           value={value}

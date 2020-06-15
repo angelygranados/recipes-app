@@ -61,7 +61,7 @@ class RecipesPage extends React.Component {
               className="btn btn-primary add-course"
               onClick={() => this.setState({ redirectToAddRecipePage: true })}
             >
-              Add Course
+              Nueva Receta
             </button>
 
             <RecipeList
