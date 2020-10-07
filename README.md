@@ -1,4 +1,4 @@
-# Recipes admin app
+# Recipes admin app 🥟🍚🍧🥗(Currently on develop)
 
 ### Project based on the course [Building Applications in React and Redux](http://www.pluralsight.com/author/cory-house) on Pluralsight
 
